@@ -76,10 +76,6 @@ public:
     {
         position[0].x = x;
         position[0].y = y;
-        for (int i = length - 1; i != 0 ; i--)
-        {
-            position[i] = position[i-1];
-        }
         //  W
         //A S D
 
@@ -101,7 +97,10 @@ public:
             break;
         }
         head.setPosition(x,y);
-
+        for (int i = length - 1; i != 0 ; i--)
+        {
+            position[i] = position[i-1];
+        }
     }
 
     void draw(sf::RenderWindow &window)
@@ -117,11 +116,11 @@ public:
 
     bool check_collision(Apple &apple)
     {
-        if (y < apple.y + 30 && y > apple.y ||
-            y+30 < apple.y + 30 && y+30 > apple.y)
+        if (y <= apple.y + 30 && y >= apple.y ||
+            y+30 <= apple.y + 30 && y+30 >= apple.y)
         {
-            if ((x + 30 > apple.x && x + 30 < apple.x + 30) ||
-                (x > apple.x && x < apple.x + 30))
+            if ((x + 30 >= apple.x && x + 30 <= apple.x + 30) ||
+                (x >= apple.x && x <= apple.x + 30))
                     {
                         length+=1;
                         apple.rand_position();
