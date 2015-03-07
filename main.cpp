@@ -12,6 +12,35 @@ struct Pos
     float y;
 };
 
+class Apple :public sf::Transformable
+{
+public:
+    Pos position;
+    float x;
+    float y;
+    sf::Texture apple_texture;
+    sf::Sprite apple;
+
+    bool load_files()
+    {
+        if (!apple_texture.loadFromFile("img/apple.png"))
+            return false;
+
+        apple.setTexture(apple_texture);
+
+        return true;
+    }
+
+    void rand_position()
+    {
+        position.x = rand() % 750 + 10;
+        position.y = rand() % 550 + 10;
+        x = position.x;
+        y = position.y;
+        apple.setPosition(x,y);
+    }
+
+};
 class Snake :public sf::Transformable
 {
 public:
@@ -40,12 +69,17 @@ public:
 
         position[0].x = x;
         position[0].y = y;
-        head.setPosition(x,y);
         return true;
     }
 
     void move_snake(int key)
     {
+        position[0].x = x;
+        position[0].y = y;
+        for (int i = length - 1; i != 0 ; i--)
+        {
+            position[i] = position[i-1];
+        }
         //  W
         //A S D
 
@@ -53,35 +87,74 @@ public:
         //2 3 4
         switch (key)
         {
-            case 1:
-                y--;
-                break;
-            case 2:
-                x--;
-                break;
-            case 3:
-                y++;
-                break;
-            case 4:
-                x++;
-                break;
+        case 1:
+            y-=30;
+            break;
+        case 2:
+            x-=30;
+            break;
+        case 3:
+            y+=30;
+            break;
+        case 4:
+            x+=30;
+            break;
         }
-        position[0].x = x;
-        position[0].y = y;
         head.setPosition(x,y);
+
     }
 
     void draw(sf::RenderWindow &window)
     {
+
         window.draw(head);
+        for (int i = length - 1; i != 0 ; i--)
+        {
+            body.setPosition(position[i].x, position[i].y);
+            window.draw(body);
+        }
+    }
+
+    bool check_collision(Apple &apple)
+    {
+        if (y < apple.y + 30 && y > apple.y ||
+            y+30 < apple.y + 30 && y+30 > apple.y)
+        {
+            if ((x + 30 > apple.x && x + 30 < apple.x + 30) ||
+                (x > apple.x && x < apple.x + 30))
+                    {
+                        length+=1;
+                        apple.rand_position();
+                    }
+
+        }
+
+        return false;
+
+
+        //    if ((y < pipes.y_up+pipes.pipe_len && y > pipes.y_up) ||
+   //         (y < pipes.y_down+pipes.pipe_len && y > pipes.y_down) ||
+    //        (y+length < pipes.y_up+pipes.pipe_len && y + length > pipes.y_up) ||
+   //         (y+length < pipes.y_down+pipes.pipe_len && y + length > pipes.y_down))
+ //   {
+  //      if (x + width > pipes.x && x + width < pipes.x + pipes.pipe_width)
+  //          return true;
     }
 
 };
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Flappy Me!"); // tworzenie glownego okna
+    srand(time(NULL));
+    sf::Time cooldown;
+    cooldown = sf::seconds( 0.1f );
+    sf::Clock frameclock;
+    sf::Time elapsedtime;
+    sf::RenderWindow window(sf::VideoMode(800,600), "Flappy Me!"); // tworzenie glownego okna
     window.setFramerateLimit(60); // ustalenie limitu na 60 fps
     int key;
+    Apple apple;
+    apple.load_files();
+    apple.rand_position();
     Snake snake;
     if (snake.load_files() == false)
         return -1;
@@ -98,18 +171,44 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
                 key = 1;
                 cout << snake.x << endl << snake.y << endl;
             }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            {
+                key = 2;
+                cout << snake.x << endl << snake.y << endl;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            {
+                key = 3;
+                cout << snake.x << endl << snake.y << endl;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                key = 4;
+                cout << snake.x << endl << snake.y << endl;
+            }
 
         }
-        //snake.move_snake(key);
+        elapsedtime += frameclock.restart();
+        if( elapsedtime >= cooldown )
+        {
+            elapsedtime = sf::Time::Zero;
+            snake.move_snake(key);
+        }
+        if(snake.check_collision(apple))
+        {
+            cout << "collision" << endl;
+        }
         window.clear(); // czyszczenie okna
-        //snake.draw(window);
-        window.draw(background_sprite);
+        window.draw(apple.apple);
+        snake.draw(window);
+        //window.draw(background_sprite);
         //window.draw(snake.head);
+        window.display();
     }
 
     return 0;
