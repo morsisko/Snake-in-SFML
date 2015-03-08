@@ -11,9 +11,7 @@ struct Pos
     float x;
     float y;
 };
-
-class Apple :public sf::Transformable
-{
+class Apple :public sf::Transformable, public Snake{
 public:
     Pos position;
     float x;
@@ -31,13 +29,23 @@ public:
         return true;
     }
 
+    void check_snake_body(Pos pos, int len)
+    {
+        //if
+    }
+
     void rand_position()
     {
-        position.x = rand() % 750 + 10;
-        position.y = rand() % 550 + 10;
+        do
+        {
+        position.x = (rand() % 750) + 10;
+        position.y = (rand() % 550) + 10;
         x = position.x;
         y = position.y;
         apple.setPosition(x,y);
+        cout <<"trying"<<endl;
+        } while ();
+        cout << "app position = " << x << ", " << y<< endl;
     }
 
 };
@@ -116,14 +124,15 @@ public:
 
     bool check_collision(Apple &apple)
     {
-        if (y <= apple.y + 30 && y >= apple.y ||
-            y+30 <= apple.y + 30 && y+30 >= apple.y)
+        if (((y <= apple.y + 30) && (y >= apple.y)) ||
+            ((y+30 <= apple.y + 30) && (y+30 >= apple.y)))
         {
             if ((x + 30 >= apple.x && x + 30 <= apple.x + 30) ||
                 (x >= apple.x && x <= apple.x + 30))
                     {
-                        length+=1;
-                        apple.rand_position();
+                        return true;
+                        //apple.rand_position();
+                        //length+=1;
                     }
 
         }

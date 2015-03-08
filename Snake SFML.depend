@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1425753105 source:c:\users\mors.michalpc\c++ projects\snake sfml\main.cpp
+1425761542 source:c:\users\mors.michalpc\c++ projects\snake sfml\main.cpp
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -421,4 +421,45 @@
 	<SFML/System/String.hpp>
 	<string>
 	<vector>
+
+1425810739 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\apple.cpp
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<iostream>
+	"../headers/apple.h"
+	"../headers/snake.h"
+
+1425810739 c:\users\mors.michalpc\c++ projects\snake sfml\headers\apple.h
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<iostream>
+
+1425813818 c:\users\mors.michalpc\c++ projects\snake sfml\headers\snake.h
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<iostream>
+
+1425815843 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\snake.cpp
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<iostream>
+	"../headers/snake.h"
+	"../headers/apple.h"
+
+1425815843 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\main.cpp
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<iostream>
+	"../headers/snake.h"
+	"../headers/apple.h"
 

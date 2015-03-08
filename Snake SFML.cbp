@@ -13,7 +13,15 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="D:/SFML-2.2/include" />
 				</Compiler>
+				<Linker>
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-system-d" />
+					<Add directory="D:/SFML-2.2/lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Snake SFML" prefix_auto="1" extension_auto="1" />
@@ -22,17 +30,31 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="D:/SFML-2.2/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add directory="D:/SFML-2.2/lib" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="D:/SFML-2.2/include" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Linker>
+			<Add directory="D:/SFML-2.2/lib" />
+		</Linker>
+		<Unit filename="headers/apple.h" />
+		<Unit filename="headers/snake.h" />
+		<Unit filename="source/apple.cpp" />
+		<Unit filename="source/main.cpp" />
+		<Unit filename="source/snake.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
