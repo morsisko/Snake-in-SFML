@@ -87,7 +87,8 @@ bool Snake::check_head_collision()
         if (position[i].y == y && position[i].x == x)
             return true;
     }
-
+    if (y > 601 || y < -1 || x > 801 || x < -1)
+        return true;
     return false;
 
 }

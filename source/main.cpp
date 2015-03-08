@@ -15,6 +15,11 @@ int main()
     cooldown = sf::seconds( 0.1f );
     sf::Clock frameclock;
     sf::Time elapsedtime;
+    sf::Font font;
+    sf::Text text;
+    sf::Text error;
+    if (!font.loadFromFile("fonts/angrybirds-regular.ttf"))
+        return -1;
     sf::RenderWindow window(sf::VideoMode(800,600), "Flappy Me!"); // tworzenie glownego okna
     window.setFramerateLimit(60); // ustalenie limitu na 60 fps
     int key = rand() % 4 + 1;
@@ -30,6 +35,8 @@ int main()
     sf::Sprite background_sprite; // sprite tla
     background_sprite.setTexture(background);
     background_sprite.setPosition(0,0); // ustawianie spritow
+    text.setFont(font);
+    error.setFont(font);
     while (window.isOpen()) // glowna petla
     {
         sf::Event event;
@@ -40,22 +47,18 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
                 key = 1;
-                cout << snake.x << endl << snake.y << endl;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
                 key = 2;
-                cout << snake.x << endl << snake.y << endl;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
                 key = 3;
-                cout << snake.x << endl << snake.y << endl;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
                 key = 4;
-                cout << snake.x << endl << snake.y << endl;
             }
 
         }
@@ -63,19 +66,24 @@ int main()
         if( elapsedtime >= cooldown )
         {
             elapsedtime = sf::Time::Zero;
-            snake.move_snake(key);
+            if(snake.check_head_collision())
+            {
+                snake.speed = 0;
+            }
+            else
+            {
+                snake.move_snake(key);
+            }
+
         }
         if(snake.check_collision(apple))
         {
             snake.length+=1;
-            do{
+            do
+            {
                 apple.rand_position();
-            } while (snake.check_collision_body(apple));
-
-        }
-        if(snake.check_head_collision())
-        {
-            snake.speed = 1;
+            }
+            while (snake.check_collision_body(apple));
 
         }
         window.clear(); // czyszczenie okna
