@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
-//#include "../source/main.cpp"
+using namespace std;
 struct Pos
 {
     float x;
@@ -17,11 +17,14 @@ public:
     sf::Texture body_texture;
     sf::Sprite head;
     sf::Sprite body;
+    sf::SoundBuffer get_point_buffer;
+    sf::Sound get_point;
     Pos position[600];
     float x = 300;
     float y = 300;
     float speed = 30;
     int length = 1;
+    int score = 0;
 
 public:
 
@@ -36,5 +39,7 @@ public:
     bool check_head_collision();
 
     bool check_collision_body(Apple apple);
+
+    string return_points(int points);
 
 };

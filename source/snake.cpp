@@ -3,6 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
+#include <sstream>
 #include "../headers/snake.h"
 #include "../headers/apple.h"
 using namespace std;
@@ -17,6 +18,11 @@ bool Snake::load_files()
         return false;
 
     body.setTexture(body_texture);
+
+    if (!get_point_buffer.loadFromFile("sounds/get_point.ogg"))
+        return false;
+
+    get_point.setBuffer(get_point_buffer);
 
     position[0].x = x;
     position[0].y = y;
@@ -82,12 +88,12 @@ bool Snake::check_collision(Apple &apple)
 }
 bool Snake::check_head_collision()
 {
-    for (int i = 1; i != length ;i++)
+    for (int i = 1; i != length ; i++)
     {
         if (position[i].y == y && position[i].x == x)
             return true;
     }
-    if (y > 601 || y < -1 || x > 801 || x < -1)
+    if (y > 601 || y+30 < -1 || x + 30 > 801 || x < -1)
         return true;
     return false;
 
@@ -112,3 +118,11 @@ bool Snake::check_collision_body(Apple apple)
 
 
 }
+string Snake::return_points(int points)
+{
+    stringstream points_ss;
+    points_ss << points;
+    string points_to_view = points_ss.str();
+    return points_to_view;
+}
+

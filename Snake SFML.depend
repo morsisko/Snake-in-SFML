@@ -422,39 +422,41 @@
 	<string>
 	<vector>
 
-1425810739 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\apple.cpp
+1426176565 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\apple.cpp
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	<iostream>
+	<sstream>
 	"../headers/apple.h"
 	"../headers/snake.h"
 
-1425810739 c:\users\mors.michalpc\c++ projects\snake sfml\headers\apple.h
+1426176565 c:\users\mors.michalpc\c++ projects\snake sfml\headers\apple.h
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	<iostream>
 
-1425813818 c:\users\mors.michalpc\c++ projects\snake sfml\headers\snake.h
+1426176565 c:\users\mors.michalpc\c++ projects\snake sfml\headers\snake.h
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	<iostream>
 
-1425822952 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\snake.cpp
+1426176565 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\snake.cpp
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	<iostream>
+	<sstream>
 	"../headers/snake.h"
 	"../headers/apple.h"
 
-1425822908 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\main.cpp
+1426174812 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\main.cpp
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
