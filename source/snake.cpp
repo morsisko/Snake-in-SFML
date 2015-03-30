@@ -36,8 +36,8 @@ void Snake::move_snake(int key)
 
     //  1
     //2 3 4
-    position[0].x = x;
-    position[0].y = y;
+    position[0].x = x; //head x
+    position[0].y = y; //head y
     switch (key)
     {
     case 1:

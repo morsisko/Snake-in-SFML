@@ -38,7 +38,7 @@ public:
 
     bool check_head_collision();
 
-    bool check_collision_body(Apple apple);
+    bool check_collision_body(Apple &apple);
 
     string return_points(int points);
 

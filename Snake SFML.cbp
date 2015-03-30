@@ -51,9 +51,13 @@
 			<Add directory="D:/SFML-2.2/lib" />
 		</Linker>
 		<Unit filename="headers/apple.h" />
+		<Unit filename="headers/game.h" />
+		<Unit filename="headers/results.h" />
 		<Unit filename="headers/snake.h" />
 		<Unit filename="source/apple.cpp" />
+		<Unit filename="source/game.cpp" />
 		<Unit filename="source/main.cpp" />
+		<Unit filename="source/results.cpp" />
 		<Unit filename="source/snake.cpp" />
 		<Extensions>
 			<code_completion />

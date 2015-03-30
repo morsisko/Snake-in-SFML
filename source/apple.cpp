@@ -20,6 +20,7 @@ bool Apple::load_files()
 
 void Apple::rand_position()
 {
+
     x = (rand() % 750) + 10;
     y = (rand() % 550) + 10;
     apple.setPosition(x,y);
