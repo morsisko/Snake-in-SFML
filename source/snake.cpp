@@ -93,12 +93,12 @@ bool Snake::check_head_collision()
         if (position[i].y == y && position[i].x == x)
             return true;
     }
-    if (y > 601 || y+30 < -1 || x + 30 > 801 || x < -1)
+    if (y+30 > 600 || y+30 < 1 || x+30 > 810 || x < -1)
         return true;
     return false;
 
 }
-bool Snake::check_collision_body(Apple apple)
+bool Snake::check_collision_body(Apple &apple)
 {
     for (int i = length - 1; i>=0 ; i--)
     {

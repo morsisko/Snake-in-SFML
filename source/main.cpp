@@ -5,8 +5,8 @@
 #include <iostream>
 #include "../headers/snake.h"
 #include "../headers/apple.h"
-#include "../headers/game.h"
 #include "../headers/results.h"
+#include "../headers/game.h"
 
 using namespace std;
 

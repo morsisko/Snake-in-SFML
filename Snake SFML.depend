@@ -446,7 +446,7 @@
 	<SFML/System.hpp>
 	<iostream>
 
-1427540705 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\snake.cpp
+1428332468 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\snake.cpp
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -456,17 +456,7 @@
 	"../headers/snake.h"
 	"../headers/apple.h"
 
-1427540219 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\main.cpp
-	<SFML/Audio.hpp>
-	<SFML/Graphics.hpp>
-	<SFML/Window.hpp>
-	<SFML/System.hpp>
-	<iostream>
-	"../headers/snake.h"
-	"../headers/apple.h"
-	"../headers/game.h"
-
-1427633347 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\game.cpp
+1427811492 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\main.cpp
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -477,14 +467,26 @@
 	"../headers/results.h"
 	"../headers/game.h"
 
-1427636061 c:\users\mors.michalpc\c++ projects\snake sfml\headers\game.h
+1428332220 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\game.cpp
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<iostream>
+	<cstring>
+	"../headers/snake.h"
+	"../headers/apple.h"
+	"../headers/results.h"
+	"../headers/game.h"
+
+1428232885 c:\users\mors.michalpc\c++ projects\snake sfml\headers\game.h
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	<iostream>
 	<sstream>
 
-1427563223 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\results.cpp
+1427633197 source:c:\users\mors.michalpc\c++ projects\snake sfml\source\results.cpp
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
