@@ -6,8 +6,6 @@
 class Results;
 class Game :public sf::Transformable
 {
-    std::string actuall_code = "";
-    bool konami = false;
     Results results;
     sf::RenderWindow window;
     sf::Font font;
@@ -20,6 +18,10 @@ class Game :public sf::Transformable
     sf::Sprite background_sprite;
     sf::Sprite list_sprite;
     sf::Sprite secret_background_sprite;
+    //others
+    bool sounds = true;
+    std::string actuall_code = ""; // string to konami code
+    bool konami = false;
 public:
     Game();
 

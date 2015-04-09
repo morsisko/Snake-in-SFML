@@ -204,7 +204,7 @@ void Game::start_game()
         if(snake.check_collision(apple))
         {
             snake.length+=1;
-            snake.get_point.play();
+            if (sounds) snake.get_point.play();
             snake.score += apple.score_to_get;
             apple.score_to_get = 100;
             do
@@ -407,6 +407,17 @@ void Game::options()
 
     }
 
+    if (sounds)
+    {
+        buttons_text[0].setString("Sounds: ON");
+        buttons_text[0].setColor(Color::Green);
+    }
+    else
+    {
+        buttons_text[0].setString("Sounds: OFF");
+        buttons_text[0].setColor(Color::Red);
+    }
+
     while (state == OPTIONS)
     {
         Vector2f mouse(Mouse::getPosition(window));
@@ -423,7 +434,18 @@ void Game::options()
             else if (buttons_text[0].getGlobalBounds().contains(mouse) &&
                      Mouse::isButtonPressed(Mouse::Left))
             {
-                ;//TODO
+                if (sounds)
+                {
+                    sounds = false;
+                    buttons_text[0].setString("Sounds: OFF");
+                    buttons_text[0].setColor(Color::Red);
+                }
+                else
+                {
+                    sounds = true;
+                    buttons_text[0].setString("Sounds: ON");
+                    buttons_text[0].setColor(Color::Green);
+                }
             }
 
             else if (buttons_text[1].getGlobalBounds().contains(mouse) &&
@@ -435,17 +457,16 @@ void Game::options()
 
         window.clear();
 
+        if (buttons_text[1].getGlobalBounds().contains(mouse))
+        {
+            buttons_text[1].setColor(Color::Yellow);
+        }
+        else
+        {
+            buttons_text[1].setColor(Color::White);
+        }
         for (int i = 0; i<buttons; i++) // buttons = len of tab buttons_tab
         {
-            if (buttons_text[i].getGlobalBounds().contains(mouse))
-            {
-                buttons_text[i].setColor(Color::Yellow);
-            }
-            else
-            {
-                buttons_text[i].setColor(Color::White);
-            }
-
             window.draw(buttons_text[i]);
         }
 
