@@ -11,9 +11,11 @@ public:
     float y;
     int score_to_get = 100;
     sf::Texture apple_texture;
+    sf::Texture star_texture;
+    sf::Texture banana_texture;
     sf::Sprite apple;
 
-    bool load_files();
+    bool load_files(int mode);
 
     void rand_position();
 

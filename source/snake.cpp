@@ -22,7 +22,11 @@ bool Snake::load_files()
     if (!get_point_buffer.loadFromFile("sounds/get_point.ogg"))
         return false;
 
+    if (!die_buffer.loadFromFile("sounds/die.wav"))
+        return false;
+
     get_point.setBuffer(get_point_buffer);
+    die_sound.setBuffer(die_buffer);
 
     position[0].x = x;
     position[0].y = y;

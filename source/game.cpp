@@ -22,7 +22,19 @@ Game::Game()
         return;
     if (!list_texture.loadFromFile("img/list.png"))
         return;
-    if (!secret_background.loadFromFile("img/rainbow.png"))
+    //if (!secret_background.loadFromFile("img/rainbow.png"))
+    //  return;
+    if (!mini_texture.loadFromFile("img/mini.png"))
+        return;
+    if (!map1_texture.loadFromFile("img/galactic.png"))
+        return;
+    if (!mini_grass_texture.loadFromFile("img/minigrass.png"))
+        return;
+    if (!map2_texture.loadFromFile("img/grass.png"))
+        return;
+    if (!mini_sand_texture.loadFromFile("img/minisand.png"))
+        return;
+    if (!map3_texture.loadFromFile("img/sand.png"))
         return;
     if (!results.import_file())
         return;
@@ -35,15 +47,23 @@ Game::Game()
     background_sprite.setPosition(0,0);
     list_sprite.setTexture(list_texture);
     list_sprite.setPosition(810,0);
-    secret_background_sprite.setTexture(secret_background);
     secret_background_sprite.setPosition(0,0);
+    map1.setTexture(map1_texture);
+    map1.setPosition(0,0);
+    map2.setTexture(map2_texture);
+    map2.setPosition(0,0);
+    map3.setTexture(map3_texture);
+    map3.setPosition(0,0);
+    mini_sprite.setTexture(mini_texture);
+    mini_grass.setTexture(mini_grass_texture);
+    mini_sand.setTexture(mini_sand_texture);
     //without errors
     state = MENU;
 }
 
-void Game::add_code(char code)
+bool Game::add_code(char code)
 {
-    if (code == 0) return;
+    if (code == 0) return false;
     if (actuall_code.length() < 10) actuall_code += code;
     else
     {
@@ -53,8 +73,15 @@ void Game::add_code(char code)
         }
         actuall_code[9] = code;
     }
-    if (actuall_code == "UUDDLRLRBA") konami = true;
-    cout << actuall_code << std::endl;
+    if (actuall_code == "UUDDLRLRBA")
+    {
+        konami = true;
+        konami_menu = true;
+        actuall_code = "";
+        return true;
+    }
+
+    //cout << actuall_code << std::endl;
 }
 
 void Game::run()
@@ -79,6 +106,9 @@ void Game::run()
         case OPTIONS:
             options();
             break;
+        case SPECIAL_MENU:
+            special_menu();
+            break;
         case END:
             break;
         }
@@ -90,6 +120,7 @@ void Game::start_game()
 {
     actuall_code = "";
     bool die = false;
+    bool play_die_sound = true;
     //declaring time variables
     sf::Time cooldown;
     sf::Time points_cooldown;
@@ -108,13 +139,14 @@ void Game::start_game()
     sf::Text error;
     sf::Text best_length;
     sf::Text best_score;
+    sf::Text miss_code;
     //creating apple and snake
     Apple apple;
     Snake snake;
     //loading images
     if (snake.load_files() == false)
         return;
-    if (apple.load_files() == false)
+    if (apple.load_files(mode) == false)
         return;
     //setting apple position
     apple.rand_position();
@@ -136,8 +168,13 @@ void Game::start_game()
     best_score.setCharacterSize(35);
     error.setFont(font);
     error.setPosition(50, 200);
-    error.setCharacterSize(80);
-    error.setString("You lost! Press ENTER to play again!");
+    error.setCharacterSize(70);
+    error.setString("You lost! \nPress ENTER to play again!");
+    error.setColor(sf::Color::Red);
+    miss_code.setFont(font);
+    miss_code.setPosition(820, 520);
+    miss_code.setCharacterSize(35);
+    miss_code.setString("Dla: \nMPCforum");
 
 
     //dif
@@ -181,8 +218,15 @@ void Game::start_game()
             if(snake.check_head_collision())
             {
                 snake.speed = 0;
+                apple.score_to_get = 0;
                 if(results.check(snake.length, 1)) results.save();
                 if(results.check(snake.score, 2)) results.save();
+
+                if (play_die_sound)
+                {
+                    snake.die_sound.play();
+                    play_die_sound = false;
+                }
             }
             else
             {
@@ -219,6 +263,7 @@ void Game::start_game()
         else window.draw(background_sprite);
         snake.draw(window);
         window.draw(list_sprite);
+        if (konami) window.draw(miss_code);
         window.draw(points);
         window.draw(score_text);
         window.draw(score_to_get_text);
@@ -299,6 +344,8 @@ void Game::menu()
 
         window.clear();
 
+        if (konami_menu) state = SPECIAL_MENU;
+
         for (int i = 0; i<buttons; i++) // buttons = len of tab buttons_tab
         {
             if (buttons_text[i].getGlobalBounds().contains(mouse))
@@ -325,7 +372,7 @@ void Game::score()
     title.setStyle(Text::Bold);
     title.setColor(Color::Red);
 
-    title.setPosition(250, 20);
+    title.setPosition(375, 20);
 
     const int buttons = 3; // number of buttons
 
@@ -339,7 +386,7 @@ void Game::score()
         buttons_text[i].setFont(font);
         buttons_text[i].setCharacterSize(65);
         buttons_text[i].setString(str[i]);
-        buttons_text[i].setPosition(400, 150+(i*120));
+        buttons_text[i].setPosition(300, 150+(i*120));
 
     }
 
@@ -391,7 +438,7 @@ void Game::options()
     title.setStyle(Text::Bold);
     title.setColor(Color::Red);
 
-    title.setPosition(250, 20);
+    title.setPosition(375, 20);
 
     const int buttons = 2; // number of buttons
 
@@ -403,7 +450,7 @@ void Game::options()
         buttons_text[i].setFont(font);
         buttons_text[i].setCharacterSize(65);
         buttons_text[i].setString(str[i]);
-        buttons_text[i].setPosition(400, 150+(i*120));
+        buttons_text[i].setPosition(300, 150+(i*120));
 
     }
 
@@ -471,6 +518,110 @@ void Game::options()
         }
 
         window.draw(title);
+        window.display();
+
+    }
+}
+
+void Game::special_menu()
+{
+    Text title("Select map: ", font, 75);
+    title.setStyle(Text::Bold);
+    title.setColor(Color::Red);
+
+    title.setPosition(250, 20);
+
+    const int buttons = 3; // number of buttons
+
+    Text buttons_text[buttons];
+
+    string str[] = {"Map 1", "Map 2", "Map 3"};
+    for (int i = 0; i < buttons; i++)
+    {
+        buttons_text[i].setFont(font);
+        buttons_text[i].setCharacterSize(65);
+        buttons_text[i].setString(str[i]);
+        buttons_text[i].setPosition(150+(i*250), 200);
+    }
+
+
+    mini_sprite.setPosition(175,300);
+    mini_grass.setPosition(425,300);
+    mini_sand.setPosition(675,300);
+
+    while (state == SPECIAL_MENU)
+    {
+        Vector2f mouse(Mouse::getPosition(window));
+        Event event;
+
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed || event.type == Event::KeyPressed &&
+                    event.key.code == Keyboard::Escape)
+            {
+                state = MENU;
+                konami_menu = false;
+            }
+
+            else if ((buttons_text[0].getGlobalBounds().contains(mouse) &&
+                     Mouse::isButtonPressed(Mouse::Left)) ||
+                     mini_sprite.getGlobalBounds().contains(mouse) &&
+                     Mouse::isButtonPressed(Mouse::Left))
+            {
+                secret_background_sprite.setTexture(map1_texture);
+                konami_menu = false;
+                konami = true;
+                mode = 1;
+                state = GAME;
+            }
+
+            else if ((buttons_text[1].getGlobalBounds().contains(mouse) &&
+                     Mouse::isButtonPressed(Mouse::Left)) ||
+                     mini_grass.getGlobalBounds().contains(mouse) &&
+                     Mouse::isButtonPressed(Mouse::Left))
+            {
+                secret_background_sprite.setTexture(map2_texture);
+                konami_menu = false;
+                konami = true;
+                mode = 2;
+                state = GAME;
+            }
+            else if ((buttons_text[2].getGlobalBounds().contains(mouse) &&
+                     Mouse::isButtonPressed(Mouse::Left)) ||
+                     mini_sand.getGlobalBounds().contains(mouse) &&
+                     Mouse::isButtonPressed(Mouse::Left))
+            {
+                secret_background_sprite.setTexture(map3_texture);
+                konami_menu = false;
+                konami = true;
+                mode = 3;
+                state = GAME;
+            }
+        }
+
+        window.clear();
+
+        for (int i = 0; i<buttons; i++)
+        {
+            if (buttons_text[i].getGlobalBounds().contains(mouse))
+            {
+                buttons_text[i].setColor(Color::Yellow);
+            }
+            else
+            {
+                buttons_text[i].setColor(Color::White);
+            }
+        }
+
+        for (int i = 0; i<buttons; i++) // buttons = len of tab buttons_tab
+        {
+            window.draw(buttons_text[i]);
+        }
+
+        window.draw(title);
+        window.draw(mini_sprite);
+        window.draw(mini_grass);
+        window.draw(mini_sand);
         window.display();
 
     }

@@ -18,7 +18,9 @@ public:
     sf::Sprite head;
     sf::Sprite body;
     sf::SoundBuffer get_point_buffer;
+    sf::SoundBuffer die_buffer;
     sf::Sound get_point;
+    sf::Sound die_sound;
     Pos position[600];
     float x = 300;
     float y = 300;

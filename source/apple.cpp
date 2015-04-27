@@ -8,12 +8,20 @@
 #include "../headers/snake.h"
 using namespace std;
 
-bool Apple::load_files()
+bool Apple::load_files(int mode)
 {
     if (!apple_texture.loadFromFile("img/apple.png"))
         return false;
 
-    apple.setTexture(apple_texture);
+    if (!star_texture.loadFromFile("img/star.png"))
+        return false;
+
+    if (!banana_texture.loadFromFile("img/banana.png"))
+        return false;
+
+    if (!mode || mode == 2) apple.setTexture(apple_texture);
+    else if (mode == 1) apple.setTexture(star_texture);
+    else if (mode == 3) apple.setTexture(banana_texture);
 
     return true;
 }
@@ -24,8 +32,8 @@ void Apple::rand_position()
     x = (rand() % 750) + 10;
     y = (rand() % 550) + 10;
     apple.setPosition(x,y);
-    cout <<"trying"<<endl;
-    cout << "app position = " << x << ", " << y<< endl;
+    //cout <<"trying"<<endl;
+    //cout << "app position = " << x << ", " << y<< endl;
 }
 
 string Apple::return_points()
